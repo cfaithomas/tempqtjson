@@ -3,7 +3,7 @@ int ledPin=3;
 String inputString = "";
 boolean stringComplete = false;
 int state=0; //etat de la led
-
+int analogvalue=0; //valeur analogique
 StaticJsonDocument<255> doc; //variable de type Statijsondocument 255 taille max document json
 
 void setup() {
@@ -31,11 +31,12 @@ void loop() {
             return;
         }
         state=doc["button"]; //recupere la valeur de la clé button
-
+        analogvalue=doc["slider"];  //recupere la valeur de la clé slider
         inputString = "";  //on remet la chaine à blanc
     }
 
     digitalWrite(ledPin, state); //on ecrit sur la pin la valeur de state
-
+    if(analogvalue!=0)  //permet de que le bouton on fonctionne
+    analogWrite(ledPin,analogvalue);
 
 }
